@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Reality of FX Trading</title>
+    <title>The Reality of FX Trading | FXトレードの現実</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,6 +23,56 @@
             border-radius: 1rem;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             border: 1px solid #334155;
+            position: relative;
+        }
+        .lang-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #475569;
+            transition: .4s;
+            border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #38bdf8;
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
         }
         h1 {
             color: #38bdf8;
@@ -43,13 +93,48 @@
 </head>
 <body>
     <div class="container">
-        <h1>The Reality of FX Trading</h1>
-        <p>
+        <div class="lang-toggle">
+            <span>EN</span>
+            <label class="switch">
+                <input type="checkbox" id="langSwitch">
+                <span class="slider"></span>
+            </label>
+            <span>JP</span>
+        </div>
+        <h1 id="title">The Reality of FX Trading</h1>
+        <p id="content">
             FX trading is notoriously difficult because it's a zero-sum game where retail traders compete against institutional giants and high-frequency algorithms with far superior data and speed. The high availability of leverage often lures traders into taking oversized positions, which can wipe out an account during a single volatile event. Beyond the technicals, the psychological toll is immense; the constant battle against greed and fear often leads to revenge trading or abandoning a proven strategy at the first sign of a drawdown, making consistent profitability an elusive goal for most.
         </p>
-        <div class="footer">
+        <div class="footer" id="footer">
             Insights on Financial Markets
         </div>
     </div>
+
+    <script>
+        const translations = {
+            en: {
+                title: "The Reality of FX Trading",
+                content: "FX trading is notoriously difficult because it's a zero-sum game where retail traders compete against institutional giants and high-frequency algorithms with far superior data and speed. The high availability of leverage often lures traders into taking oversized positions, which can wipe out an account during a single volatile event. Beyond the technicals, the psychological toll is immense; the constant battle against greed and fear often leads to revenge trading or abandoning a proven strategy at the first sign of a drawdown, making consistent profitability an elusive goal for most.",
+                footer: "Insights on Financial Markets"
+            },
+            jp: {
+                title: "FXトレードの現実",
+                content: "FXトレードが多くのトレーダーにとって一貫して利益を上げることが難しい理由は、それがゼロサムゲームであり、個人トレーダーが圧倒的に優れたデータと速度を持つ機関投資家や高頻度取引アルゴリズムと競い合っているからです。高いレバレッジが利用可能であるため、トレーダーは過剰なポジションを取りがちになり、一度の激しい相場変動で口座を完全に失うリスクがあります。また、技術的な側面だけでなく、精神的な負担も計り知れず、強欲と恐怖の絶え間ない葛藤がリベンジトレードや、わずかなドローダウンで手法を放棄することにつながり、結果として多くの人にとって一貫した収益性は手の届かない目標となっています。",
+                footer: "金融市場の洞察"
+            }
+        };
+
+        const switchEl = document.getElementById('langSwitch');
+        const titleEl = document.getElementById('title');
+        const contentEl = document.getElementById('content');
+        const footerEl = document.getElementById('footer');
+
+        switchEl.addEventListener('change', () => {
+            const lang = switchEl.checked ? 'jp' : 'en';
+            titleEl.textContent = translations[lang].title;
+            contentEl.textContent = translations[lang].content;
+            footerEl.textContent = translations[lang].footer;
+        });
+    </script>
 </body>
 </html>
